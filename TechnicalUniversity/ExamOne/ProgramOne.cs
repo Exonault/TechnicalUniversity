@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Exam
+namespace ExamOne
 {
     public static class ProgramOne
     {
@@ -22,7 +22,7 @@ namespace Exam
         private static void InitMatrix()
         {
             string fileLocation =
-                @"C:\Users\k.krachmarov\source\repos\Git\TechnicalUniversity-Semester1\TechnicalUniversity\Exam\Files\test.txt";
+                @"C:\Users\k.krachmarov\source\repos\Git\TechnicalUniversity-Semester1\TechnicalUniversity\ExamOne\Files\test.txt";
 
             if (File.Exists(fileLocation))
             {

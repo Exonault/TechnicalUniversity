@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Exam
+namespace ExamOne
 {
     class StartUp
     {

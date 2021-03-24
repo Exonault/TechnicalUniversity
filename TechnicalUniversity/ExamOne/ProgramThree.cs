@@ -1,4 +1,4 @@
-﻿namespace Exam
+﻿namespace ExamOne
 {
     public static class ProgramThree
     {
