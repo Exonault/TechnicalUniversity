@@ -7,7 +7,7 @@ namespace Threads
     {
         static void Main(string[] args)
         {
-            
+            new MergeSortThreads().Run();
         }
     }
 }

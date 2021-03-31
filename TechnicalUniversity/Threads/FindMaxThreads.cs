@@ -15,11 +15,11 @@ namespace Threads
                 arr[i] = r.Next();
             }
 
-            var t1 = DateTime.Now;
+            DateTime t1 = DateTime.Now;
 
             int max = FindMax(arr);
 
-            var t2 = DateTime.Now;
+            DateTime t2 = DateTime.Now;
 
             Console.WriteLine($"{max} without threads found for {(t2 - t1).Milliseconds}");
 
@@ -79,14 +79,14 @@ namespace Threads
                 threadResult[i] = threadParams[i].max;
             }
 
-            return FindMax(arr);
+            return FindMax(threadResult);
         }
 
         public static void ThreadJob(object obj)
         {
             ThreadParam param = (ThreadParam) obj;
 
-            var size = param.arr.Length / param.threadsCounts;
+            int size = param.arr.Length / param.threadsCounts;
 
 
             int from = param.threadNum * size;
