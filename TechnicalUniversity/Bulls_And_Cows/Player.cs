@@ -6,24 +6,24 @@ namespace Bulls_And_Cows
     public class Player
     {
         private Random _random;
-        private StringBuilder _stringBuilder;
+        private StringBuilder _scoreboard;
         private bool _firstRound;
         private string _computerNumber;
 
-        public Player()
+        public Player(string computerNumber)
         {
             _random = new Random();
-            _stringBuilder = new StringBuilder();
-            _stringBuilder.Append("Previous guesses: Number Bulls Cows\n");
+            _scoreboard = new StringBuilder()
+                .Append("Previous guesses: Number Bulls Cows\n");
             _firstRound = true;
-            _computerNumber = GenerateNumber();
+            _computerNumber = computerNumber;
         }
 
         public bool Play()
         {
             if (!_firstRound)
             {
-                Console.WriteLine(_stringBuilder.ToString());
+                Console.WriteLine(_scoreboard.ToString());
             }
             else
             {
@@ -33,7 +33,7 @@ namespace Bulls_And_Cows
             int bullsCount = 0;
             int cowsCount = 0;
 
-            string playerGuess = ValidInput();
+            string playerGuess = ValidateInput();
 
             for (int i = 0; i < _computerNumber.Length; i++)
             {
@@ -49,7 +49,8 @@ namespace Bulls_And_Cows
             }
 
             Console.WriteLine($"Bulls: {bullsCount} Cows: {cowsCount} \n");
-            _stringBuilder.Append($"                  {playerGuess}   {bullsCount}     {cowsCount} \n");
+            _scoreboard.Append($"                  {playerGuess}   {bullsCount}     {cowsCount} \n");
+            
             if (bullsCount == 4)
             {
                 Console.WriteLine("Player wins");
@@ -60,33 +61,7 @@ namespace Bulls_And_Cows
             return false;
         }
 
-
-        private string GenerateNumber()
-        {
-            int[] digits = new int[4];
-            string number = "";
-
-            number += digits[0] = _random.Next(9) + 1;
-            number += digits[1] = GenerateUniqueDigits(digits[0], -1, -1);
-            number += digits[2] = GenerateUniqueDigits(digits[0], digits[1], -1);
-            number += digits[3] = GenerateUniqueDigits(digits[0], digits[1], digits[2]);
-            Console.WriteLine(number);
-            return number;
-        }
-
-        private int GenerateUniqueDigits(int firstDigit, int secondDigit, int thirdDigit)
-        {
-            int number = -1;
-
-            do
-            {
-                number = _random.Next(9) + 0;
-            } while (number == firstDigit || number == secondDigit || number == thirdDigit);
-
-            return number;
-        }
-
-        private string ValidInput()
+        private string ValidateInput()
         {
             string result = "";
             bool flag = false;

@@ -2,13 +2,13 @@
 
 namespace Bulls_And_Cows
 {
-    public class GameEngine
+    public static class GameEngine
     {
         public static void StartGame()
-        {
-            Player player = new Player();
+        { 
             Computer computer = new Computer();
-
+            Player player = new Player(computer.Number);
+            
             string nextToPlay = "player";
             bool winner = false;
 

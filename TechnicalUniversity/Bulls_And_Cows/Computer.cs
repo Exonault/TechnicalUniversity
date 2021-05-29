@@ -5,24 +5,30 @@ namespace Bulls_And_Cows
 {
     public class Computer
     {
+        public string Number { get; }
+
         private List<String> _possibleNumbers;
         private Random _random;
+
 
         public Computer()
         {
             _random = new Random();
             _possibleNumbers = AllPossibleCombinations();
+            Number = GenerateNumber();
         }
 
         public bool Play()
         {
             int initialIndex = _random.Next(_possibleNumbers.Count);
+
             String initialNumber = _possibleNumbers[initialIndex];
+
             Console.WriteLine($"Computer's guess is {initialNumber}");
+
             Console.WriteLine("Enter the number of bulls:");
+
             int bullsCount = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter the number of cows:");
-            int cowsCount = int.Parse(Console.ReadLine());
 
             if (bullsCount == 4)
             {
@@ -30,8 +36,12 @@ namespace Bulls_And_Cows
                 return true;
             }
 
+            Console.WriteLine("Enter the number of cows:");
+
+            int cowsCount = int.Parse(Console.ReadLine());
+
             _possibleNumbers.RemoveAt(initialIndex);
-            NumbersPruning(_possibleNumbers, initialNumber, bullsCount, cowsCount);
+            NumbersPruning(initialNumber, bullsCount, cowsCount);
 
             if (_possibleNumbers.Count < 1 && bullsCount != 4)
             {
@@ -43,11 +53,36 @@ namespace Bulls_And_Cows
             return false;
         }
 
-        private void NumbersPruning(List<string> possibleNumbers, String initialNumber, int bullsCount, int cowsCount)
+        private string GenerateNumber()
         {
-            for (int i = 0; i < possibleNumbers.Count; i++)
+            int[] digits = new int[4];
+            string number = "";
+
+            number += digits[0] = _random.Next(1,9) ;
+            number += digits[1] = GenerateUniqueDigits(digits[0], -1, -1);
+            number += digits[2] = GenerateUniqueDigits(digits[0], digits[1], -1);
+            number += digits[3] = GenerateUniqueDigits(digits[0], digits[1], digits[2]);
+            Console.WriteLine(number); // delete this line before u submit
+            return number;
+        }
+
+        private int GenerateUniqueDigits(int firstDigit, int secondDigit, int thirdDigit)
+        {
+            int number = -1;
+
+            do
             {
-                string currentNumber = possibleNumbers[i];
+                number = _random.Next(9);
+            } while (number == firstDigit || number == secondDigit || number == thirdDigit);
+
+            return number;
+        }
+
+        private void NumbersPruning(string initialNumber, int bullsCount, int cowsCount)
+        {
+            for (int i = 0; i < _possibleNumbers.Count; i++)
+            {
+                string currentNumber = _possibleNumbers[i];
 
                 int currentBullsCount = 0;
                 int currentCowsCount = 0;
@@ -68,7 +103,7 @@ namespace Bulls_And_Cows
 
                 if (currentBullsCount != bullsCount || currentCowsCount != cowsCount)
                 {
-                    possibleNumbers.RemoveAt(i);
+                    _possibleNumbers.RemoveAt(i);
                     i--;
                 }
             }
